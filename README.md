@@ -1,10 +1,10 @@
-# Microcrystal Detection in SEM Images — Code Repository
+# Microcrystal Detection in SEM Images,  Code Repository
 
 Code for the paper:
 
 > **Learning-Based Detection of Microcrystals in Scanning Electron Microscopy Images**  
 > A. Maaradji, A. Mehadjbia, A. Jaouadi  
-> *Open Computer Science*, De Gruyter — **under review** (2026)
+> *Open Computer Science*, De Gruyter,  **under review** (2026)
 
 ---
 
@@ -13,8 +13,8 @@ Code for the paper:
 This repository contains all scripts to reproduce the experiments in the paper: hyperparameter search, model comparison (YOLO11m / YOLOv8m / YOLO26m), inference benchmarking, and publication-quality figure generation.
 
 The method trains a YOLO-based object detector to simultaneously localize two classes in scanning electron microscopy (SEM) images:
-- **Useful microcrystal** — the primary target for material quality assessment
-- **Bacterial structure** — a co-occurring contaminant that must be distinguished
+- **Useful microcrystal**,  the primary target for material quality assessment
+- **Bacterial structure**,  a co-occurring contaminant that must be distinguished
 
 ---
 
@@ -22,7 +22,7 @@ The method trains a YOLO-based object detector to simultaneously localize two cl
 
 The annotated SEM dataset (120 images, 2,747 bounding-box instances in COCO format) is **available upon request** from the corresponding author:
 
-**Abderrahmane Maaradji** — abderrahmane.maaradji@udst.edu.qa  
+**Abderrahmane Maaradji**,  abderrahmane.maaradji@udst.edu.qa  
 University of Doha for Science and Technology, Doha, Qatar
 
 Both the non-augmented split (88 train / 16 val / 16 test) and the augmented split (253 train / 16 val / 16 test) are provided in COCO format alongside their `data.yaml` files.
@@ -62,7 +62,7 @@ Best configuration found: **batch=16, lr=0.001** → mAP@0.5 = 0.690 (non-aug), 
 
 ---
 
-### 2. Model comparison — YOLO11m vs YOLOv8m
+### 2. Model comparison,  YOLO11m vs YOLOv8m
 `compare_models.py`
 
 Trains YOLOv8m under identical conditions (batch=16, lr=0.001, 100 epochs) and outputs a side-by-side comparison CSV.
@@ -78,7 +78,7 @@ Output: `model_comparison_results/comparison_results.csv`
 
 ---
 
-### 3. Three-model comparison — YOLO11m / YOLOv8m / YOLO26m
+### 3. Three-model comparison,  YOLO11m / YOLOv8m / YOLO26m
 `run_yolo26_comparison.py`
 
 Trains and evaluates all three YOLO generations under identical conditions and produces a combined CSV for Table 2 in the paper.
@@ -92,7 +92,7 @@ python run_yolo26_comparison.py \
     --gpu         0
 ```
 
-Helper: `_run_yolo26.ps1` (PowerShell launcher — update the three path variables at the top).
+Helper: `_run_yolo26.ps1` (PowerShell launcher,  update the three path variables at the top).
 
 ---
 
