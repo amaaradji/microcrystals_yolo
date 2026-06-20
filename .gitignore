@@ -1,0 +1,9 @@
+runs/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.json
+inference_benchmark_results/
+model_comparison_results/
+*.pt
