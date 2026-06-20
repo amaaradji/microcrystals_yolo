@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.log
+*_log.txt
 *.json
 inference_benchmark_results/
 model_comparison_results/

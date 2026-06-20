@@ -1,2 +1,4 @@
-ultralytics==8.3.102
+ultralytics==8.4.72
 torch>=2.0.0
+matplotlib>=3.7.0
+Pillow>=9.0.0
