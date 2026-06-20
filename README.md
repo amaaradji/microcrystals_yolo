@@ -4,7 +4,7 @@ Code for the paper:
 
 > **Learning-Based Detection of Microcrystals in Scanning Electron Microscopy Images**  
 > A. Maaradji, A. Mehadjbia, A. Jaouadi  
-> *Open Computer Science*, De Gruyter (2026)
+> *Open Computer Science*, De Gruyter — **under review** (2026)
 
 ---
 
