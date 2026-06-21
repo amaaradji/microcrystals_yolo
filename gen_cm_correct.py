@@ -20,9 +20,9 @@ from ultralytics import YOLO
 # Paths are set via argparse in __main__; see defaults for the reference values used in the paper.
 
 DPI      = 300
-FS_TITLE = 12
+FS_TITLE = 11
 FS_TICK  = 11
-FS_CELL  = 22   # large readable numbers inside cells
+FS_CELL  = 14   # cell annotation font size
 
 
 def run_val(pt_path, device=0):
@@ -33,11 +33,12 @@ def run_val(pt_path, device=0):
     return mat, names
 
 
-def draw_cm(ax, mat, class_names, title):
+def draw_cm(ax, mat, class_names, title=""):
     """
     Correctly normalized confusion matrix including the background/missed row.
     mat shape: (nc+1, nc+1)
     Displayed: (nc+1) rows x nc cols  (background col dropped).
+    title: optional panel label shown above the axes (pass "" to suppress).
     """
     nc = len(class_names)
     # Normalize full matrix by column sum first (so each col sums to 1)
@@ -51,7 +52,8 @@ def draw_cm(ax, mat, class_names, title):
 
     im = ax.imshow(disp, cmap="Blues", vmin=0, vmax=1, interpolation="nearest",
                    aspect="auto")
-    ax.set_title(title, fontsize=FS_TITLE, fontweight="bold", pad=10)
+    if title:
+        ax.set_title(title, fontsize=FS_TITLE, fontweight="bold", pad=8)
 
     ax.set_xticks(range(nc))
     ax.set_xticklabels(class_names, fontsize=FS_TICK, fontweight="bold")
@@ -112,10 +114,9 @@ if __name__ == "__main__":
         val = mat26[j, j] / col_sums26[j] if col_sums26[j] > 0 else 0
         print(f"  {name}: {val:.3f}")
 
-    # ── 1. Individual YOLO11m figure (single column = smaller) ───────────────
+    # ── 1. Individual YOLO11m figure (no title — caption carries the info) ───
     fig, ax = plt.subplots(figsize=(4.5, 4.2), dpi=DPI)
-    im = draw_cm(ax, mat11, names,
-                 "YOLO11m Normalized Confusion Matrix\n(augmented dataset, mAP@0.5 = 0.720)")
+    im = draw_cm(ax, mat11, names)
     plt.colorbar(im, ax=ax, fraction=0.06, pad=0.04)
     plt.tight_layout()
     out = os.path.join(IMG_DIR, "cm_yolo11m.png")
@@ -125,8 +126,7 @@ if __name__ == "__main__":
 
     # ── 2. Individual YOLO26m figure ─────────────────────────────────────────
     fig, ax = plt.subplots(figsize=(4.5, 4.2), dpi=DPI)
-    im = draw_cm(ax, mat26, names,
-                 "YOLO26m Normalized Confusion Matrix\n(augmented dataset, mAP@0.5 = 0.744)")
+    im = draw_cm(ax, mat26, names)
     plt.colorbar(im, ax=ax, fraction=0.06, pad=0.04)
     plt.tight_layout()
     out = os.path.join(IMG_DIR, "cm_yolo26m.png")
@@ -134,12 +134,10 @@ if __name__ == "__main__":
     plt.close(fig)
     print(f"Saved cm_yolo26m.png  ({os.path.getsize(out)//1024} KB)")
 
-    # ── 3. Side-by-side comparison ────────────────────────────────────────────
+    # ── 3. Side-by-side comparison (short panel labels retained) ─────────────
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.8), dpi=DPI)
-    im0 = draw_cm(axes[0], mat11, names,
-                  "(a) YOLO11m  (mAP@0.5 = 0.720)")
-    im1 = draw_cm(axes[1], mat26, names,
-                  "(b) YOLO26m  (mAP@0.5 = 0.744)")
+    im0 = draw_cm(axes[0], mat11, names, "(a) YOLO11m")
+    im1 = draw_cm(axes[1], mat26, names, "(b) YOLO26m")
     for ax, im in zip(axes, [im0, im1]):
         plt.colorbar(im, ax=ax, fraction=0.06, pad=0.04)
     plt.suptitle(
