@@ -108,6 +108,7 @@ def train_fold(fold_idx: int, train_paths: list[str], val_paths: list[str],
         split="val",
         device=gpu,
         verbose=False,
+        workers=0,
     )
 
     m = val_res.results_dict
